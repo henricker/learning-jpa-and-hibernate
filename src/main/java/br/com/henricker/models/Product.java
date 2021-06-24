@@ -2,6 +2,7 @@ package br.com.henricker.models;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 //Mapping entity
 @Entity
@@ -14,6 +15,19 @@ public class Product {
     private String name;
     private String description;
     private BigDecimal price;
+    private LocalDate dateRegistered = LocalDate.now();
+
+    @ManyToOne
+    private Category category;
+
+    public Product() {}
+
+    public Product(String name, String description, BigDecimal price, Category category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+    }
 
     public Long getId() {
         return id;
@@ -45,5 +59,33 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public LocalDate getDateRegistered() {
+        return dateRegistered;
+    }
+
+    public void setDateRegistered(LocalDate dateRegistered) {
+        this.dateRegistered = dateRegistered;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", dateRegistered=" + dateRegistered +
+                ", category=" + category +
+                '}';
     }
 }
