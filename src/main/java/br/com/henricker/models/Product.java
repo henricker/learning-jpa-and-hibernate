@@ -7,6 +7,7 @@ import java.time.LocalDate;
 //Mapping entity
 @Entity
 @Table(name = "product")
+@Inheritance(strategy = InheritanceType.JOINED) // JOINED -> Create table to subclasses, SINGLE_TABLE -> Only one table
 public class Product {
 
     @Id
@@ -17,7 +18,8 @@ public class Product {
     private BigDecimal price;
     private LocalDate dateRegistered = LocalDate.now();
 
-    @ManyToOne
+    //By defualt relationship 'toOne' is eager, good pratice set to lazy
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
     public Product() {}
